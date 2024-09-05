@@ -41,12 +41,44 @@ body {
 
 /* Product Grid */
 .product-grid {
-    display:flex;
-    flex-direction: column;
-    width: 100vw;
-    align-items: center;
-    justify-content: center;
+    display: flex;
+    flex-wrap: wrap;
+    justify-content: space-around;
+    padding: 20px;
 }
+
+.plant-category {
+    display: flex;
+    flex-wrap: wrap;
+    margin: 20px 0;
+}
+
+.plant-item {
+    width: 300px;
+    margin: 15px;
+    padding: 15px;
+    border: 1px solid #ddd;
+    border-radius: 8px;
+    text-align: center;
+    background-color: #f9f9f9;
+}
+
+.plant-item img {
+    width: 100%;
+    height: auto;
+    border-radius: 8px;
+}
+
+.plant-item h3 {
+    font-size: 1.5em;
+    color: #333;
+}
+
+.plant-item p {
+    font-size: 1em;
+    color: #666;
+}
+
 .product-list {
     display: flex;
     flex-wrap: wrap;

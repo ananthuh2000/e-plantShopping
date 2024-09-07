@@ -278,6 +278,7 @@ const handlePlantsClick = (e) => {
                                         <h3>{plant.name}</h3>
                                         <p>{plant.description}</p>
                                         <p>{plant.cost}</p>
+                                        <button  className="product-button" onClick={() => handleAddToCart(plant)}>Add to Cart</button>
                                     </div>
                                 ))}
                             </div>

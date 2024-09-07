@@ -4,6 +4,7 @@ import CartItem from './CartItem';
 function ProductList() {
     const [showCart, setShowCart] = useState(false); 
     const [showPlants, setShowPlants] = useState(false); // State to control the visibility of the About Us page
+    const [addedToCart, setAddedToCart] = useState([]);
 
     const plantsArray = [
         {
@@ -246,6 +247,12 @@ const handlePlantsClick = (e) => {
     e.preventDefault();
     setShowCart(false);
   };
+
+  const handleAddToCart = (plant) => {
+    setAddedToCart([...addedToCart, plant]);
+    alert(`${plant.name} added to cart!`);
+};
+
     return (
         <div>
              <div className="navbar" style={styleObj}>

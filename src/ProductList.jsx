@@ -1,10 +1,15 @@
 import React, { useState,useEffect } from 'react';
 import './ProductList.css'
+import { useDispatch } from 'react-redux';
+import { addItem } from './CartSlice';
 import CartItem from './CartItem';
+
+
 function ProductList() {
     const [showCart, setShowCart] = useState(false); 
     const [showPlants, setShowPlants] = useState(false); // State to control the visibility of the About Us page
     const [addedToCart, setAddedToCart] = useState([]);
+    const dispatch = useDispatch();
 
     const plantsArray = [
         {
@@ -249,7 +254,15 @@ const handlePlantsClick = (e) => {
   };
 
   const handleAddToCart = (plant) => {
-    setAddedToCart([...addedToCart, plant]);
+    // Dispatch the addItem action to the global cart
+    dispatch(addItem(plant));
+
+    // Update the addedToCart state with the plant name
+    setAddedToCart(prevState => ({
+        ...prevState,
+        [plant.name]: true
+    }));
+
     alert(`${plant.name} added to cart!`);
 };
 
@@ -285,7 +298,13 @@ const handlePlantsClick = (e) => {
                                         <h3>{plant.name}</h3>
                                         <p>{plant.description}</p>
                                         <p>{plant.cost}</p>
-                                        <button  className="product-button" onClick={() => handleAddToCart(plant)}>Add to Cart</button>
+                                        <button 
+                                            className="product-button" 
+                                            onClick={() => handleAddToCart(plant)}
+                                            disabled={addedToCart[plant.name]} // Disable button if already added
+                                        >
+                                            {addedToCart[plant.name] ? 'Added' : 'Add to Cart'}
+                                        </button>
                                     </div>
                                 ))}
                             </div>

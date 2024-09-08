@@ -249,9 +249,13 @@ const handlePlantsClick = (e) => {
 };
 
    const handleContinueShopping = (e) => {
-    e.preventDefault();
-    setShowCart(false);
-  };
+        e.preventDefault();
+        console.log('Continue shopping clicked');
+        setShowCart(false);
+        setShowPlants(true); // Show plants when continue shopping is clicked
+    };
+
+    
 
   const handleAddToCart = (plant) => {
     // Dispatch the addItem action to the global cart

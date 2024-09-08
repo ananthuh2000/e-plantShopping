@@ -1,5 +1,12 @@
 import { createSlice } from '@reduxjs/toolkit';
 
+
+const initialState = {
+    items: [],
+    totalQuantity: 0, // Add totalQuantity to track the number of items
+};
+
+
 export const CartSlice = createSlice({
   name: 'cart',
   initialState: {
@@ -8,26 +15,32 @@ export const CartSlice = createSlice({
   reducers: {
     addItem: (state, action) => {
       // Check if the item already exists in the cart
-      const existingItem = state.items.find(item => item.name === action.payload.name);
-      if (existingItem) {
-        // Update the quantity if it exists
-        existingItem.quantity += 1;
-      } else {
-        // Otherwise, add it as a new item with a default quantity of 1
-        state.items.push({ ...action.payload, quantity: 1 });
-      }
-    },
+      const item = action.payload;
+            const existingItem = state.items.find(i => i.name === item.name);
+            if (existingItem) {
+                existingItem.quantity++;
+            } else {
+                state.items.push({ ...item, quantity: 1 });
+            }
+            state.totalQuantity++; // Increment total quantity
+        },
     removeItem: (state, action) => {
-      state.items = state.items.filter(item => item.name !== action.payload.name);
-    },
+      const itemToRemove = action.payload;
+            state.items = state.items.filter(i => i.name !== itemToRemove.name);
+            state.totalQuantity -= itemToRemove.quantity; // Subtract totalQuantity
+        },
     updateQuantity: (state, action) => {
-      const item = state.items.find(item => item.name === action.payload.name);
-      if (item) {
-        item.quantity = action.payload.quantity;
-      }
-    },
+      const { name, quantity } = action.payload;
+            const item = state.items.find(i => i.name === name);
+            state.totalQuantity += (quantity - item.quantity); // Adjust totalQuantity
+            item.quantity = quantity;
+        },
+        clearCart: (state) => {
+            state.items = [];
+            state.totalQuantity = 0; // Reset totalQuantity when cart is cleared
+        },
   },
 });
 
-export const { addItem, removeItem, updateQuantity } = CartSlice.actions;
+export const { addItem, removeItem, updateQuantity, clearCart } = CartSlice.actions;
 export default CartSlice.reducer;

@@ -1,12 +1,5 @@
 import { createSlice } from '@reduxjs/toolkit';
 
-
-const initialState = {
-    items: [],
-    totalQuantity: 0, // Add totalQuantity to track the number of items
-};
-
-
 export const CartSlice = createSlice({
   name: 'cart',
   initialState: {
